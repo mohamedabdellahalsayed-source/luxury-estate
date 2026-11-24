@@ -377,6 +377,9 @@ const STORAGE_KEYS = {
 
 const DEFAULT_LANG = 'ar';
 
+/** The first cards are visible right away on mobile, so they load eagerly. */
+const EAGER_IMAGE_COUNT = 2;
+
 const state = {
   lang: DEFAULT_LANG,
   favorites: [],
@@ -490,14 +493,21 @@ function specsHTML(property) {
     <li><i class="fa-solid fa-ruler-combined"></i>${formatNumber(property.area)} m²</li>`;
 }
 
-function propertyCardHTML(property) {
+function locationHTML(property) {
+  return `
+    <i class="fa-solid fa-location-dot"></i>
+    ${CITIES[property.city][state.lang]} · ${t(property.type)}`;
+}
+
+function propertyCardHTML(property, index) {
   const lang = state.lang;
   const isFavorite = state.favorites.includes(property.id);
+  const lazyAttr = index < EAGER_IMAGE_COUNT ? '' : 'loading="lazy"';
 
   return `
-    <article class="card">
+    <article class="card" data-id="${property.id}">
       <div class="card-img">
-        <img src="${property.img}" alt="${property.name[lang]}" loading="lazy" decoding="async">
+        <img src="${property.img}" alt="${property.name[lang]}" ${lazyAttr} decoding="async">
         <span class="tag">${t(property.deal)}</span>
         <button class="fav ${isFavorite ? 'on' : ''}" data-fav="${property.id}"
                 aria-pressed="${isFavorite}" aria-label="${t('aria_fav')}: ${property.name[lang]}">
@@ -506,10 +516,7 @@ function propertyCardHTML(property) {
       </div>
       <div class="card-body">
         <h3>${property.name[lang]}</h3>
-        <p class="muted">
-          <i class="fa-solid fa-location-dot"></i>
-          ${CITIES[property.city][lang]} · ${t(property.type)}
-        </p>
+        <p class="muted">${locationHTML(property)}</p>
         <p class="price">${formatPrice(property)}</p>
         <ul class="specs">${specsHTML(property)}</ul>
         <button class="btn btn-outline" data-view="${property.id}" type="button">${t('view')}</button>
@@ -517,10 +524,46 @@ function propertyCardHTML(property) {
     </article>`;
 }
 
+/**
+ * Update the text, aria and favorite state of an existing card
+ * WITHOUT touching its <img>, so the image never reloads or flickers.
+ */
+function updateCard(card, property) {
+  const lang = state.lang;
+  const isFavorite = state.favorites.includes(property.id);
+
+  card.querySelector('img').alt = property.name[lang];
+  card.querySelector('.tag').textContent = t(property.deal);
+
+  const fav = card.querySelector('.fav');
+  fav.classList.toggle('on', isFavorite);
+  fav.setAttribute('aria-pressed', isFavorite);
+  fav.setAttribute('aria-label', `${t('aria_fav')}: ${property.name[lang]}`);
+  fav.querySelector('i').className = `fa-${isFavorite ? 'solid' : 'regular'} fa-heart`;
+
+  card.querySelector('h3').textContent = property.name[lang];
+  card.querySelector('.muted').innerHTML = locationHTML(property);
+  card.querySelector('.price').textContent = formatPrice(property);
+  card.querySelector('.specs').innerHTML = specsHTML(property);
+  card.querySelector('[data-view]').textContent = t('view');
+}
+
 function renderProperties() {
   const list = getFilteredProperties();
+  const grid = $('#grid');
 
-  $('#grid').innerHTML = list.map(propertyCardHTML).join('');
+  // If the same cards (in the same order) are already on screen, update them in place.
+  const currentIds = [...grid.querySelectorAll('.card')].map((card) => Number(card.dataset.id));
+  const nextIds = list.map((p) => p.id);
+  const sameSet =
+    currentIds.length === nextIds.length && currentIds.every((id, i) => id === nextIds[i]);
+
+  if (sameSet && list.length) {
+    list.forEach((p) => updateCard(grid.querySelector(`.card[data-id="${p.id}"]`), p));
+  } else {
+    grid.innerHTML = list.map((p, i) => propertyCardHTML(p, i)).join('');
+  }
+
   $('#empty').hidden = list.length > 0;
   $('#empty').textContent = t(state.favoritesOnly && !state.favorites.length ? 'empty_fav' : 'empty');
   $('#count').textContent = `${formatNumber(list.length)} ${t('found')}`;
@@ -534,6 +577,9 @@ function renderProperties() {
 function bindCardImages() {
   document.querySelectorAll('.card-img img').forEach((img) => {
     const box = img.parentNode;
+
+    // Already handled (reused card): nothing to do.
+    if (box.classList.contains('is-loaded') || box.classList.contains('is-failed')) return;
 
     const markLoaded = () => box.classList.add('is-loaded');
     const markFailed = () => box.classList.add('is-failed');
