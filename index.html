@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LUXURY ESTATE | Luxury Real Estate</title>
+    <meta name="description"
+        content="Luxury villas, apartments and penthouses for sale and rent. عقارات فاخرة للبيع والإيجار.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#142C38">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LUXURY ESTATE | Luxury Real Estate">
+    <meta property="og:description" content="Luxury villas, apartments and penthouses for sale and rent.">
+    <meta property="og:image" content="images/webaliser-_TPTXZd9mOo-unsplash.jpg">
+    <link rel="preload" as="image" href="images/webaliser-_TPTXZd9mOo-unsplash.jpg" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600&family=Tajawal:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <a class="skip-link" href="#main" data-i18n="skip"></a>
+
+    <!-- ========== Header & Navigation ========== -->
+    <header class="header" id="header">
+        <div class="container nav">
+            <a href="#home" class="logo" aria-label="LUXURY ESTATE"><i class="fa-solid fa-gem"></i><span>LUXURY
+                    <b>ESTATE</b></span></a>
+            <nav id="menu" class="menu" aria-label="Main" data-i18n-aria="aria_main">
+                <a href="#home" data-i18n="nav_home"></a>
+                <a href="#properties" data-i18n="nav_properties"></a>
+                <a href="#about" data-i18n="nav_about"></a>
+                <a href="#services" data-i18n="nav_services"></a>
+                <a href="#contact" data-i18n="nav_contact"></a>
+            </nav>
+            <div class="nav-actions">
+                <button id="langBtn" class="lang-btn" type="button" aria-label="Switch language"
+                    data-i18n-aria="aria_lang">EN</button>
+                <button id="burger" class="burger" type="button" aria-label="Menu" data-i18n-aria="aria_menu"
+                    aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main" tabindex="-1">
+
+        <!-- ========== Hero ========== -->
+        <section id="home" class="hero">
+            <div class="container hero-in">
+                <h1 data-i18n="hero_title"></h1>
+                <p data-i18n="hero_text"></p>
+                <a href="#properties" class="btn btn-gold" data-i18n="hero_cta"></a>
+            </div>
+        </section>
+
+        <!-- ========== Property Search ========== -->
+        <section class="container search-wrap" aria-label="Search" data-i18n-aria="aria_search">
+            <form id="searchForm" class="search">
+                <label><span data-i18n="f_city"></span><select id="fCity"></select></label>
+                <label><span data-i18n="f_type"></span><select id="fType"></select></label>
+                <label><span data-i18n="f_deal"></span><select id="fDeal"></select></label>
+                <label><span data-i18n="f_min"></span><input id="fMin" type="number" min="0" step="1000"
+                        placeholder="0"></label>
+                <label><span data-i18n="f_max"></span><input id="fMax" type="number" min="0" step="1000"
+                        placeholder="∞"></label>
+                <button class="btn btn-gold" type="submit"><i class="fa-solid fa-magnifying-glass"></i> <span
+                        data-i18n="f_search"></span></button>
+            </form>
+        </section>
+
+        <!-- ========== Featured Properties ========== -->
+        <section id="properties" class="section">
+            <div class="container">
+                <div class="head">
+                    <h2 data-i18n="props_title"></h2>
+                    <div class="head-tools">
+                        <span id="count" aria-live="polite"></span>
+                        <button id="favToggle" class="btn btn-outline" type="button" aria-pressed="false"><i
+                                class="fa-solid fa-heart"></i> <span data-i18n="favs"></span> (<span
+                                id="favCount">0</span>)</button>
+                        <button id="resetBtn" class="btn btn-outline" type="button" data-i18n="f_reset"></button>
+                    </div>
+                </div>
+                <div id="grid" class="grid"></div>
+                <p id="empty" class="empty" hidden data-i18n="empty"></p>
+            </div>
+        </section>
+
+        <!-- ========== About Us ========== -->
+        <section id="about" class="section navy">
+            <div class="container about">
+                <div>
+                    <h2 data-i18n="about_title"></h2>
+                    <p data-i18n="about_text"></p>
+                    <h3 data-i18n="vision_t"></h3>
+                    <p data-i18n="vision_p"></p>
+                    <h3 data-i18n="mission_t"></h3>
+                    <p data-i18n="mission_p"></p>
+                </div>
+                <ul class="stats">
+                    <li><b>15+</b><span data-i18n="st1"></span></li>
+                    <li><b>480</b><span data-i18n="st2"></span></li>
+                    <li><b>$2.4B</b><span data-i18n="st3"></span></li>
+                    <li><b>98%</b><span data-i18n="st4"></span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ========== Services ========== -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="center" data-i18n="serv_title"></h2>
+                <div class="services">
+                    <article><i class="fa-solid fa-key"></i>
+                        <h3 data-i18n="s1_t"></h3>
+                        <p data-i18n="s1_p"></p>
+                    </article>
+                    <article><i class="fa-solid fa-sign-hanging"></i>
+                        <h3 data-i18n="s2_t"></h3>
+                        <p data-i18n="s2_p"></p>
+                    </article>
+                    <article><i class="fa-solid fa-building"></i>
+                        <h3 data-i18n="s3_t"></h3>
+                        <p data-i18n="s3_p"></p>
+                    </article>
+                    <article><i class="fa-solid fa-comments"></i>
+                        <h3 data-i18n="s4_t"></h3>
+                        <p data-i18n="s4_p"></p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Why Choose Us ========== -->
+        <section class="section cream">
+            <div class="container">
+                <h2 class="center" data-i18n="why_title"></h2>
+                <div class="why">
+                    <div><i class="fa-solid fa-shield-halved"></i>
+                        <h3 data-i18n="w1_t"></h3>
+                        <p data-i18n="w1_p"></p>
+                    </div>
+                    <div><i class="fa-solid fa-handshake"></i>
+                        <h3 data-i18n="w2_t"></h3>
+                        <p data-i18n="w2_p"></p>
+                    </div>
+                    <div><i class="fa-solid fa-earth-africa"></i>
+                        <h3 data-i18n="w3_t"></h3>
+                        <p data-i18n="w3_p"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Testimonials ========== -->
+        <section class="section">
+            <div class="container">
+                <h2 class="center" data-i18n="test_title"></h2>
+                <div class="tests">
+                    <blockquote>
+                        <p data-i18n="t1_p"></p>
+                        <footer data-i18n="t1_n"></footer>
+                    </blockquote>
+                    <blockquote>
+                        <p data-i18n="t2_p"></p>
+                        <footer data-i18n="t2_n"></footer>
+                    </blockquote>
+                    <blockquote>
+                        <p data-i18n="t3_p"></p>
+                        <footer data-i18n="t3_n"></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== Contact ========== -->
+        <section id="contact" class="section navy">
+            <div class="container contact">
+                <div>
+                    <h2 data-i18n="contact_title"></h2>
+                    <p data-i18n="contact_text"></p>
+                    <ul class="info">
+                        <li><i class="fa-solid fa-location-dot"></i><span data-i18n="addr"></span></li>
+                        <li><i class="fa-solid fa-phone"></i><a href="tel:+97140000000" dir="ltr">+971 4 000 0000</a>
+                        </li>
+                        <li><i class="fa-solid fa-envelope"></i><a href="mailto:info@luxuryestate.example"
+                                dir="ltr">info@luxuryestate.example</a></li>
+                    </ul>
+                </div>
+                <form id="contactForm" novalidate>
+                    <label><span data-i18n="c_name"></span><input id="cName" name="name" type="text"
+                            autocomplete="name"><small></small></label>
+                    <label><span data-i18n="c_email"></span><input id="cEmail" name="email" type="email"
+                            autocomplete="email" dir="ltr"><small></small></label>
+                    <label><span data-i18n="c_phone"></span><input id="cPhone" name="phone" type="tel"
+                            autocomplete="tel" dir="ltr"><small></small></label>
+                    <label><span data-i18n="c_msg"></span><textarea id="cMsg" name="message"
+                            rows="4"></textarea><small></small></label>
+                    <button class="btn btn-gold" type="submit" data-i18n="c_send"></button>
+                    <p id="formStatus" role="status"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========== Footer ========== -->
+    <footer class="footer">
+        <div class="container foot">
+            <a href="#home" class="logo"><i class="fa-solid fa-gem"></i><span>LUXURY <b>ESTATE</b></span></a>
+            <nav aria-label="Footer" data-i18n-aria="aria_footer">
+                <a href="#properties" data-i18n="nav_properties"></a>
+                <a href="#about" data-i18n="nav_about"></a>
+                <a href="#services" data-i18n="nav_services"></a>
+                <a href="#contact" data-i18n="nav_contact"></a>
+            </nav>
+            <div class="social">
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i
+                        class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i
+                        class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i
+                        class="fa-brands fa-facebook-f"></i></a>
+            </div>
+        </div>
+        <p class="copy">© 2026 LUXURY ESTATE. <span data-i18n="rights"></span></p>
+    </footer>
+
+    <!-- ========== Property Details Modal ========== -->
+    <dialog id="modal" aria-labelledby="mTitle" aria-describedby="mDesc">
+        <button id="mClose" class="m-close" type="button" aria-label="Close" data-i18n-aria="aria_close"><i
+                class="fa-solid fa-xmark"></i></button>
+        <img id="mImg" alt="">
+        <div class="m-body">
+            <h3 id="mTitle"></h3>
+            <p id="mLoc" class="muted"></p>
+            <p id="mPrice" class="price"></p>
+            <ul id="mSpecs" class="specs"></ul>
+            <p id="mDesc"></p>
+            <a href="#contact" id="mContact" class="btn btn-gold" data-i18n="m_contact"></a>
+        </div>
+    </dialog>
+    <script src="script.js"></script>
+</body>
+
+</html>
